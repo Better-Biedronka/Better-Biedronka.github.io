@@ -3,224 +3,309 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Pracownika - Baza Wiedzy</title>
+    <title>Baza Wiedzy | Better Biedronka</title>
+    
+    <!-- Nowoczesny Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Biblioteka Ikon: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* --- RESET I BAZOWE USTAWIENIA --- */
+        /* --- ZMIENNE KOLORYSTYCZNE (PREMIUM) --- */
+        :root {
+            --primary-red: #b81024; /* Głęboka, stonowana czerwień */
+            --primary-hover: #960c1d;
+            --bg-color: #f5f7fa; /* Bardzo delikatny, chłodny szary */
+            --card-bg: #ffffff;
+            --text-main: #2d3748; /* Grafitowy zamiast czarnego */
+            --text-muted: #718096;
+            --border-color: #e2e8f0;
+        }
+
+        /* --- RESET I BAZA --- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', sans-serif;
         }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa; /* Jasnoszare tło dla kontrastu */
-            color: #333;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- NAGŁÓWEK (HEADER) --- */
-        header {
-            background-color: #ffd600; /* Żółty kolor */
-            color: #e3000f; /* Czerwony kolor */
-            padding: 25px 20px;
-            text-align: center;
-            border-bottom: 5px solid #e3000f;
-        }
-        header h1 {
-            font-size: 2.2em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-        header p {
-            color: #333;
-            font-weight: bold;
-        }
-
-        /* --- PASEK NAWIGACJI (MENU) --- */
+        /* --- GÓRNY PASEK (NAVBAR) --- */
         nav {
-            background-color: #e3000f; /* Czerwone tło menu */
-            padding: 15px;
-            position: sticky; /* Menu przykleja się do góry przy przewijaniu */
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        nav ul {
-            list-style-type: none;
+            background-color: var(--card-bg);
+            padding: 15px 40px;
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap; /* Zawija menu na telefonach */
-            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        nav ul li a {
-            color: white;
+
+        .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-red);
             text-decoration: none;
-            font-weight: bold;
-            font-size: 1.05em;
-            padding: 8px 15px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-        nav ul li a:hover {
-            background-color: #ffd600; /* Żółte tło po najechaniu myszką */
-            color: #e3000f;
-        }
-
-        /* --- GŁÓWNA ZAWARTOŚĆ --- */
-        main {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        /* Układ kafelkowy (Dashboard) */
-        .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-        }
-
-        /* Pojedynczy kafelek */
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            padding: 25px;
-            border-top: 5px solid #e3000f;
-            transition: transform 0.2s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px); /* Lekkie uniesienie kafelka po najechaniu */
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
-        }
-        .card h2 {
-            color: #e3000f;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .card p {
-            font-size: 0.9em;
-            color: #666;
+
+        .brand i {
+            font-size: 1.4rem;
+        }
+
+        .user-profile {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .user-profile:hover {
+            color: var(--primary-red);
+        }
+
+        /* --- SEKCJA GŁÓWNA (HERO & SEARCH) --- */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-main);
             margin-bottom: 15px;
+            letter-spacing: -0.5px;
         }
-        .card ul {
-            list-style-type: none;
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 30px auto;
         }
-        .card ul li {
-            margin-bottom: 10px;
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
         }
-        .card ul li a {
+
+        .search-container input {
+            width: 100%;
+            padding: 18px 25px 18px 50px;
+            font-size: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
+        }
+
+        .search-container input:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 4px 20px rgba(184, 16, 36, 0.1);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* --- ZAWARTOŚĆ BAZY WIEDZY (KAFELKI) --- */
+        main {
+            max-width: 1100px;
+            margin: 0 auto 60px auto;
+            padding: 0 20px;
+        }
+
+        .knowledge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
             text-decoration: none;
-            color: #0056b3; /* Niebieski kolor linków */
-            font-weight: 500;
+            color: inherit;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
         }
-        .card ul li a:hover {
-            text-decoration: underline;
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+            border-color: #d1d5db;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(184, 16, 36, 0.08);
+            color: var(--primary-red);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            color: var(--primary-red);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .card-link i {
+            font-size: 0.8rem;
+            transition: transform 0.2s;
+        }
+
+        .card:hover .card-link i {
+            transform: translateX(3px);
         }
 
         /* --- STOPKA --- */
         footer {
             text-align: center;
-            padding: 20px;
-            background-color: #333;
-            color: white;
-            margin-top: 50px;
-            font-size: 0.9em;
+            padding: 30px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        /* RWD */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            nav { padding: 15px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Portal Pracownika</h1>
-        <p>Baza wiedzy i najważniejsze narzędzia w jednym miejscu</p>
-    </header>
-
+    <!-- Pasek Nawigacyjny -->
     <nav>
-        <ul>
-            <li><a href="#aktualnosci">Aktualności</a></li>
-            <li><a href="#czas-pracy">Czas Pracy</a></li>
-            <li><a href="#procedury">Procedury</a></li>
-            <li><a href="#bhp">BHP i Bezpieczeństwo</a></li>
-            <li><a href="#kadry">Kadry i Benefity</a></li>
-            <li><a href="#kontakt">Kontakty</a></li>
-        </ul>
+        <a href="#" class="brand">
+            <i class="fa-solid fa-layer-group"></i>
+            Better Biedronka
+        </a>
+        <div class="user-profile">
+            <i class="fa-regular fa-circle-user"></i>
+        </div>
     </nav>
 
+    <!-- Sekcja Powitalna z Wyszukiwarką -->
+    <header class="hero">
+        <h1>Baza Wiedzy</h1>
+        <p>Wszystkie instrukcje, procedury i standardy pracy w jednym, uporządkowanym miejscu. Czego dzisiaj szukasz?</p>
+        
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Wpisz słowo kluczowe (np. zwroty, kasa, grafik)...">
+        </div>
+    </header>
+
+    <!-- Kafelki Bazy Wiedzy -->
     <main>
-        <div class="dashboard">
+        <div class="knowledge-grid">
             
-            <section class="card" id="aktualnosci">
-                <h2>📰 Aktualności</h2>
-                <p>Najnowsze komunikaty ze sklepu i centrali.</p>
-                <ul>
-                    <li><a href="#">Promocje i asortyment na ten tydzień</a></li>
-                    <li><a href="#">Wyniki inwentaryzacji</a></li>
-                    <li><a href="#">Wizyta regionalnego - przygotowania</a></li>
-                </ul>
-            </section>
+            <!-- Kategoria 1 -->
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fa-solid fa-cash-register"></i></div>
+                <h2>Strefa Kasy i SCO</h2>
+                <p>Instrukcje obsługi kas tradycyjnych, kas samoobsługowych, kody PLU oraz procedury płatności i zwrotów.</p>
+                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
-            <section class="card" id="czas-pracy">
-                <h2>⏰ Czas Pracy</h2>
-                <p>Sprawy związane z grafikiem i obecnością.</p>
-                <ul>
-                    <li><a href="#">Aktualny grafik</a></li>
-                    <li><a href="#">Zasady składania wniosków urlopowych</a></li>
-                    <li><a href="#">Zgłaszanie L4 - instrukcja</a></li>
-                </ul>
-            </section>
+            <!-- Kategoria 2 -->
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <h2>Towarowanie i Magazyn</h2>
+                <p>Zasady przyjmowania dostaw, rotacja FIFO, obsługa wózków widłowych oraz planogramy ułożenia towaru.</p>
+                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
-            <section class="card" id="procedury">
-                <h2>📋 Procedury</h2>
-                <p>Instrukcje wykonywania codziennych zadań.</p>
-                <ul>
-                    <li><a href="#">Obsługa kas samoobsługowych (SCO)</a></li>
-                    <li><a href="#">Standardy odpieku pieczywa</a></li>
-                    <li><a href="#">Przyjmowanie dostaw (chłodnia/mroźnia)</a></li>
-                    <li><a href="#">Zasady rotacji towaru (FIFO)</a></li>
-                </ul>
-            </section>
+            <!-- Kategoria 3 -->
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fa-solid fa-bread-slice"></i></div>
+                <h2>Strefa Świeżych Produktów</h2>
+                <p>Standardy odpieku pieczywa, dbanie o dział warzyw i owoców oraz procedury utylizacji.</p>
+                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
-            <section class="card" id="bhp">
-                <h2>🛡️ BHP i Bezpieczeństwo</h2>
-                <p>Ochrona zdrowia i procedury awaryjne.</p>
-                <ul>
-                    <li><a href="#">Co zrobić w przypadku kradzieży?</a></li>
-                    <li><a href="#">Instrukcje stanowiskowe BHP</a></li>
-                    <li><a href="#">Zasady pierwszej pomocy</a></li>
-                </ul>
-            </section>
+            <!-- Kategoria 4 -->
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h2>BHP i Bezpieczeństwo</h2>
+                <p>Postępowanie w sytuacjach awaryjnych, pierwsza pomoc, kradzieże oraz instrukcje stanowiskowe.</p>
+                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
-            <section class="card" id="kadry">
-                <h2>💼 Kadry i Benefity</h2>
-                <p>Twoje wynagrodzenie i dodatki pracownicze.</p>
-                <ul>
-                    <li><a href="#">Jak pobrać pasek wynagrodzeń?</a></li>
-                    <li><a href="#">Pakiety medyczne i karty sportowe</a></li>
-                    <li><a href="#">Bony i paczki świąteczne</a></li>
-                </ul>
-            </section>
+            <!-- Kategoria 5 -->
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fa-regular fa-calendar-check"></i></div>
+                <h2>Kadry i Organizacja</h2>
+                <p>Grafiki, wnioski urlopowe, informacje o benefitach pracowniczych oraz obieg dokumentów.</p>
+                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
-            <section class="card" id="kontakt">
-                <h2>📞 Ważne Kontakty</h2>
-                <p>Numery alarmowe i wsparcie techniczne.</p>
-                <ul>
-                    <li><a href="#">Helpdesk IT (Awarie kas)</a></li>
-                    <li><a href="#">Serwis techniczny (Chłodnictwo/Klimatyzacja)</a></li>
-                    <li><a href="#">Kontakt do Działu Kadr</a></li>
-                </ul>
-            </section>
+            <!-- Kategoria 6 -->
+            <a href="#" class="card">
+                <div class="card-icon"><i class="fa-solid fa-headset"></i></div>
+                <h2>IT i Awarie</h2>
+                <p>Numery do Helpdesku, zgłaszanie awarii chłodni, problemów z systemem oraz sprzętem w sklepie.</p>
+                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+            </a>
 
         </div>
     </main>
 
+    <!-- Stopka -->
     <footer>
-        <p>&copy; 2026 Wewnętrzny Portal Pracownika. Wersja 1.0.</p>
+        <p>&copy; 2026 Portal Pracowniczy. Wersja Premium (Tylko Baza Wiedzy).</p>
     </footer>
 
 </body>
