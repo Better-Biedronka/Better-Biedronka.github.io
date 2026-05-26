@@ -5,25 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baza Wiedzy | Better Biedronka</title>
     
-    <!-- Nowoczesny Font: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Biblioteka Ikon: FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* --- ZMIENNE KOLORYSTYCZNE (CZERŃ, CZERWIEŃ, ZŁOTO) --- */
         :root {
-            --primary-red: #da291c; /* Wyrazista, brandowa czerwień */
-            --primary-gold: #d4af37; /* Klasyczne, eleganckie złoto */
+            --primary-red: #da291c;
+            --primary-gold: #d4af37;
             --gold-hover: #b5952f;
-            --bg-color: #0a0a0a; /* Bardzo głęboka czerń */
-            --card-bg: #141414; /* Ciemny grafit dla kafelków */
-            --text-main: #f0f0f0; /* Złamana biel dla doskonałej czytelności */
-            --text-muted: #9e9e9e; /* Szarość dla tekstów pobocznych */
-            --border-color: #2a2a2a; /* Subtelne obramowania */
+            --bg-color: #0a0a0a;
+            --card-bg: #141414;
+            --text-main: #f0f0f0;
+            --text-muted: #9e9e9e;
+            --border-color: #2a2a2a;
         }
 
         /* --- RESET I BAZA --- */
@@ -68,11 +66,11 @@
 
         .brand i {
             font-size: 1.4rem;
-            color: var(--primary-gold); /* Złota ikona logo */
+            color: var(--primary-gold);
         }
         
         .brand span {
-            color: var(--primary-red); /* Czerwony akcent w nazwie */
+            color: var(--primary-red);
         }
 
         .user-profile {
@@ -101,7 +99,7 @@
         }
 
         .hero h1 span {
-            color: var(--primary-gold); /* Złoty akcent w tytule */
+            color: var(--primary-gold);
         }
 
         .hero p {
@@ -176,7 +174,6 @@
             overflow: hidden;
         }
 
-        /* Subtelny czerwony pasek na górze kafelka */
         .card::before {
             content: '';
             position: absolute;
@@ -202,7 +199,7 @@
         .card-icon {
             width: 55px;
             height: 55px;
-            background-color: rgba(212, 175, 55, 0.08); /* Delikatne złote tło */
+            background-color: rgba(212, 175, 55, 0.08);
             color: var(--primary-gold);
             border-radius: 12px;
             display: flex;
@@ -269,7 +266,6 @@
 </head>
 <body>
 
-    <!-- Pasek Nawigacyjny -->
     <nav>
         <a href="#" class="brand">
             <i class="fa-solid fa-layer-group"></i>
@@ -280,7 +276,6 @@
         </div>
     </nav>
 
-    <!-- Sekcja Powitalna z Wyszukiwarką -->
     <header class="hero">
         <h1>Baza <span>Wiedzy</span></h1>
         <p>Wszystkie instrukcje, procedury i standardy pracy w jednym, uporządkowanym miejscu. Czego dzisiaj szukasz?</p>
@@ -291,11 +286,9 @@
         </div>
     </header>
 
-    <!-- Kafelki Bazy Wiedzy -->
     <main>
         <div class="knowledge-grid">
             
-            <!-- Kategoria 1 -->
             <a href="#" class="card">
                 <div class="card-icon"><i class="fa-solid fa-cash-register"></i></div>
                 <h2>Strefa Kasy i SCO</h2>
@@ -303,7 +296,6 @@
                 <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <!-- Kategoria 2 -->
             <a href="#" class="card">
                 <div class="card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
                 <h2>Towarowanie i Magazyn</h2>
@@ -311,7 +303,6 @@
                 <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <!-- Kategoria 3 -->
             <a href="#" class="card">
                 <div class="card-icon"><i class="fa-solid fa-bread-slice"></i></div>
                 <h2>Strefa Świeżych Produktów</h2>
@@ -319,7 +310,6 @@
                 <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <!-- Kategoria 4 -->
             <a href="#" class="card">
                 <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
                 <h2>BHP i Bezpieczeństwo</h2>
@@ -327,7 +317,6 @@
                 <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <!-- Kategoria 5 -->
             <a href="#" class="card">
                 <div class="card-icon"><i class="fa-regular fa-calendar-check"></i></div>
                 <h2>Kadry i Organizacja</h2>
@@ -335,7 +324,6 @@
                 <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <!-- Kategoria 6 -->
             <a href="#" class="card">
                 <div class="card-icon"><i class="fa-solid fa-headset"></i></div>
                 <h2>IT i Awarie</h2>
@@ -346,10 +334,13 @@
         </div>
     </main>
 
-    <!-- Stopka -->
     <footer>
         <p>&copy; 2026 Portal Pracowniczy. Edycja Premium.</p>
     </footer>
+
+    <script>
+    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="Mm_b9v53CnAjVkWxGINAb";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
 
 </body>
 </html>
