@@ -87,7 +87,7 @@
         /* --- SEKCJA GŁÓWNA (HERO & SEARCH) --- */
         .hero {
             text-align: center;
-            padding: 70px 20px 50px;
+            padding: 70px 20px 40px;
         }
 
         .hero h1 {
@@ -144,6 +144,82 @@
             transform: translateY(-50%);
             color: var(--primary-gold);
             font-size: 1.2rem;
+        }
+
+        /* --- SEKCJA WYRÓŻNIONYCH PODRĘCZNIKÓW --- */
+        .featured-section {
+            max-width: 1100px;
+            margin: 0 auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .featured-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+        }
+
+        .manual-card {
+            background: linear-gradient(135deg, #161616 0%, #111111 100%);
+            border: 1px solid #2d2511;
+            border-radius: 12px;
+            padding: 22px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s ease;
+        }
+
+        .manual-card:hover {
+            border-color: var(--primary-gold);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.08);
+        }
+
+        .manual-info {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .manual-icon {
+            font-size: 2.2rem;
+            color: var(--primary-red);
+        }
+
+        .manual-text h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .manual-text p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .download-icon {
+            color: var(--primary-gold);
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .manual-card:hover .download-icon {
+            transform: scale(1.1);
         }
 
         /* --- ZAWARTOŚĆ BAZY WIEDZY (KAFELKI) --- */
@@ -261,6 +337,7 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
             nav { padding: 15px 20px; }
+            .featured-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -285,6 +362,35 @@
             <input type="text" placeholder="Wpisz słowo kluczowe (np. zwroty, kasa, grafik)...">
         </div>
     </header>
+
+    <section class="featured-section">
+        <div class="featured-title"><i class="fa-solid fa-star"></i> Oficjalne Podręczniki Główne</div>
+        <div class="featured-grid">
+            
+            <a href="podrecznik-kasjera.html" class="manual-card">
+                <div class="manual-info">
+                    <div class="manual-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div class="manual-text">
+                        <h3>Podręcznik Sprzedawcy Kasjera</h3>
+                        <p>Standardy obsługi klienta, kasy i procedur sklepowych</p>
+                    </div>
+                </div>
+                <div class="download-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+            </a>
+
+            <a href="podrecznik-kierownika.html" class="manual-card">
+                <div class="manual-info">
+                    <div class="manual-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div class="manual-text">
+                        <h3>Podręcznik Kierownika Sklepu</h3>
+                        <p>Zarządzanie zespołem, dokumentacja i operacje zaawansowane</p>
+                    </div>
+                </div>
+                <div class="download-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+            </a>
+
+        </div>
+    </section>
 
     <main>
         <div class="knowledge-grid">
