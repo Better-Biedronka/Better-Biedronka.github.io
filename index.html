@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pracownika - Baza Wiedzy</title>
+    <style>
+        /* --- RESET I BAZOWE USTAWIENIA --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa; /* Jasnoszare tło dla kontrastu */
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- NAGŁÓWEK (HEADER) --- */
+        header {
+            background-color: #ffd600; /* Żółty kolor */
+            color: #e3000f; /* Czerwony kolor */
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 5px solid #e3000f;
+        }
+        header h1 {
+            font-size: 2.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        header p {
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* --- PASEK NAWIGACJI (MENU) --- */
+        nav {
+            background-color: #e3000f; /* Czerwone tło menu */
+            padding: 15px;
+            position: sticky; /* Menu przykleja się do góry przy przewijaniu */
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Zawija menu na telefonach */
+            gap: 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.05em;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        nav ul li a:hover {
+            background-color: #ffd600; /* Żółte tło po najechaniu myszką */
+            color: #e3000f;
+        }
+
+        /* --- GŁÓWNA ZAWARTOŚĆ --- */
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        /* Układ kafelkowy (Dashboard) */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        /* Pojedynczy kafelek */
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 25px;
+            border-top: 5px solid #e3000f;
+            transition: transform 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Lekkie uniesienie kafelka po najechaniu */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        .card h2 {
+            color: #e3000f;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .card ul {
+            list-style-type: none;
+        }
+        .card ul li {
+            margin-bottom: 10px;
+        }
+        .card ul li a {
+            text-decoration: none;
+            color: #0056b3; /* Niebieski kolor linków */
+            font-weight: 500;
+        }
+        .card ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* --- STOPKA --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 50px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Portal Pracownika</h1>
+        <p>Baza wiedzy i najważniejsze narzędzia w jednym miejscu</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#aktualnosci">Aktualności</a></li>
+            <li><a href="#czas-pracy">Czas Pracy</a></li>
+            <li><a href="#procedury">Procedury</a></li>
+            <li><a href="#bhp">BHP i Bezpieczeństwo</a></li>
+            <li><a href="#kadry">Kadry i Benefity</a></li>
+            <li><a href="#kontakt">Kontakty</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="dashboard">
+            
+            <section class="card" id="aktualnosci">
+                <h2>📰 Aktualności</h2>
+                <p>Najnowsze komunikaty ze sklepu i centrali.</p>
+                <ul>
+                    <li><a href="#">Promocje i asortyment na ten tydzień</a></li>
+                    <li><a href="#">Wyniki inwentaryzacji</a></li>
+                    <li><a href="#">Wizyta regionalnego - przygotowania</a></li>
+                </ul>
+            </section>
+
+            <section class="card" id="czas-pracy">
+                <h2>⏰ Czas Pracy</h2>
+                <p>Sprawy związane z grafikiem i obecnością.</p>
+                <ul>
+                    <li><a href="#">Aktualny grafik</a></li>
+                    <li><a href="#">Zasady składania wniosków urlopowych</a></li>
+                    <li><a href="#">Zgłaszanie L4 - instrukcja</a></li>
+                </ul>
+            </section>
+
+            <section class="card" id="procedury">
+                <h2>📋 Procedury</h2>
+                <p>Instrukcje wykonywania codziennych zadań.</p>
+                <ul>
+                    <li><a href="#">Obsługa kas samoobsługowych (SCO)</a></li>
+                    <li><a href="#">Standardy odpieku pieczywa</a></li>
+                    <li><a href="#">Przyjmowanie dostaw (chłodnia/mroźnia)</a></li>
+                    <li><a href="#">Zasady rotacji towaru (FIFO)</a></li>
+                </ul>
+            </section>
+
+            <section class="card" id="bhp">
+                <h2>🛡️ BHP i Bezpieczeństwo</h2>
+                <p>Ochrona zdrowia i procedury awaryjne.</p>
+                <ul>
+                    <li><a href="#">Co zrobić w przypadku kradzieży?</a></li>
+                    <li><a href="#">Instrukcje stanowiskowe BHP</a></li>
+                    <li><a href="#">Zasady pierwszej pomocy</a></li>
+                </ul>
+            </section>
+
+            <section class="card" id="kadry">
+                <h2>💼 Kadry i Benefity</h2>
+                <p>Twoje wynagrodzenie i dodatki pracownicze.</p>
+                <ul>
+                    <li><a href="#">Jak pobrać pasek wynagrodzeń?</a></li>
+                    <li><a href="#">Pakiety medyczne i karty sportowe</a></li>
+                    <li><a href="#">Bony i paczki świąteczne</a></li>
+                </ul>
+            </section>
+
+            <section class="card" id="kontakt">
+                <h2>📞 Ważne Kontakty</h2>
+                <p>Numery alarmowe i wsparcie techniczne.</p>
+                <ul>
+                    <li><a href="#">Helpdesk IT (Awarie kas)</a></li>
+                    <li><a href="#">Serwis techniczny (Chłodnictwo/Klimatyzacja)</a></li>
+                    <li><a href="#">Kontakt do Działu Kadr</a></li>
+                </ul>
+            </section>
+
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Wewnętrzny Portal Pracownika. Wersja 1.0.</p>
+    </footer>
+
+</body>
+</html>
