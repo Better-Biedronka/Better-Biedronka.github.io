@@ -12,19 +12,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- ZMIENNE KOLORYSTYCZNE (CZERŃ, CZERWIEŃ, ZŁOTO) --- */
+        /* --- ZMIENNE KOLORYSTYCZNE --- */
         :root {
             --primary-red: #da291c;
             --primary-gold: #d4af37;
-            --gold-hover: #b5952f;
-            --bg-color: #0a0a0a;
-            --card-bg: #141414;
-            --text-main: #f0f0f0;
-            --text-muted: #9e9e9e;
-            --border-color: #2a2a2a;
+            --bg-color: #050505; /* Jeszcze głębsza czerń */
+            --card-bg: rgba(20, 20, 20, 0.7);
+            --text-main: #f8f8f8;
+            --text-muted: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.08);
         }
 
-        /* --- RESET I BAZA --- */
+        /* --- RESET I SCROLLBAR --- */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -32,17 +31,42 @@
             font-family: 'Inter', sans-serif;
         }
 
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-gold); }
+
         body {
             background-color: var(--bg-color);
+            /* Subtelna poświata w tle (radial gradient) */
+            background-image: radial-gradient(circle at 50% 0%, rgba(45, 10, 10, 0.5) 0%, transparent 50%);
             color: var(--text-main);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
+
+        /* --- ANIMACJE (KEYFRAMES) --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0; /* Zaczyna jako niewidoczne */
+        }
+        
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
 
         /* --- GÓRNY PASEK (NAVBAR) --- */
         nav {
-            background-color: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
+            background-color: rgba(5, 5, 5, 0.7);
+            backdrop-filter: blur(15px); /* Mocny efekt szkła */
+            -webkit-backdrop-filter: blur(15px);
             padding: 15px 40px;
             display: flex;
             justify-content: space-between;
@@ -54,61 +78,59 @@
         }
 
         .brand {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-main);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             letter-spacing: 0.5px;
         }
 
-        .brand i {
-            font-size: 1.4rem;
-            color: var(--primary-gold);
-        }
-        
-        .brand span {
-            color: var(--primary-red);
-        }
+        .brand i { color: var(--primary-gold); font-size: 1.5rem; }
+        .brand span { color: var(--primary-red); }
 
         .user-profile {
-            color: var(--primary-gold);
-            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-size: 1.3rem;
             cursor: pointer;
-            transition: color 0.3s;
+            transition: all 0.3s;
         }
 
-        .user-profile:hover {
-            color: var(--primary-red);
-        }
+        .user-profile:hover { color: var(--primary-gold); transform: scale(1.1); }
 
-        /* --- SEKCJA GŁÓWNA (HERO & SEARCH) --- */
+        /* --- SEKCJA GŁÓWNA (HERO) --- */
         .hero {
             text-align: center;
-            padding: 70px 20px 40px;
+            padding: 80px 20px 60px;
         }
 
         .hero h1 {
-            font-size: 2.8rem;
-            font-weight: 700;
+            font-size: 3.2rem;
+            font-weight: 800;
             color: var(--text-main);
             margin-bottom: 15px;
-            letter-spacing: -0.5px;
+            letter-spacing: -1px;
+            background: linear-gradient(to right, #fff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero h1 span {
-            color: var(--primary-gold);
+            background: linear-gradient(to right, var(--primary-gold), #ffdf73);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
+            font-size: 1.15rem;
+            max-width: 650px;
             margin: 0 auto 40px auto;
         }
 
+        /* --- WYSZUKIWARKA --- */
         .search-container {
             max-width: 650px;
             margin: 0 auto;
@@ -117,24 +139,25 @@
 
         .search-container input {
             width: 100%;
-            padding: 18px 25px 18px 55px;
-            font-size: 1.05rem;
-            background-color: var(--card-bg);
+            padding: 20px 25px 20px 60px;
+            font-size: 1.1rem;
+            background-color: rgba(255, 255, 255, 0.03);
             color: var(--text-main);
             border: 1px solid var(--border-color);
             border-radius: 50px;
             outline: none;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
         }
 
-        .search-container input::placeholder {
-            color: #666;
-        }
+        .search-container input::placeholder { color: #555; }
 
         .search-container input:focus {
             border-color: var(--primary-gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            background-color: rgba(20, 20, 20, 0.9);
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.15);
+            transform: translateY(-2px);
         }
 
         .search-container i {
@@ -143,13 +166,32 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--primary-gold);
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            transition: color 0.3s;
         }
+        
+        .search-container input:focus + i { color: var(--primary-red); }
 
-        /* --- SEKCJA WYRÓŻNIONYCH PODRĘCZNIKÓW --- */
+        /* --- ZNACZNIKI (BADGES) --- */
+        .badge {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        .badge-red { background: var(--primary-red); color: white; }
+        .badge-gold { background: var(--primary-gold); color: black; }
+
+        /* --- WYRÓŻNIONE PODRĘCZNIKI --- */
         .featured-section {
-            max-width: 1100px;
-            margin: 0 auto 40px auto;
+            max-width: 1150px;
+            margin: 0 auto 50px auto;
             padding: 0 20px;
         }
 
@@ -158,184 +200,123 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--primary-gold);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
         .featured-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
 
         .manual-card {
-            background: linear-gradient(135deg, #161616 0%, #111111 100%);
-            border: 1px solid #2d2511;
-            border-radius: 12px;
-            padding: 22px 25px;
+            background: linear-gradient(145deg, rgba(30,30,30,0.6) 0%, rgba(10,10,10,0.8) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
             color: var(--text-main);
-            transition: all 0.3s ease;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(5px);
         }
 
         .manual-card:hover {
-            border-color: var(--primary-gold);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.1);
         }
 
-        .manual-info {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .manual-icon {
-            font-size: 2.2rem;
-            color: var(--primary-red);
-        }
-
-        .manual-text h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .manual-text p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
+        .manual-info { display: flex; align-items: center; gap: 20px; }
+        .manual-icon { font-size: 2.5rem; color: var(--primary-red); filter: drop-shadow(0 2px 5px rgba(218,41,28,0.3)); }
+        .manual-text h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 4px; }
+        .manual-text p { font-size: 0.85rem; color: var(--text-muted); }
         .download-icon {
-            color: var(--primary-gold);
+            color: var(--text-muted);
             font-size: 1.2rem;
-            transition: transform 0.2s;
+            background: rgba(255,255,255,0.05);
+            width: 45px; height: 45px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
         }
+        .manual-card:hover .download-icon { background: var(--primary-gold); color: black; transform: rotate(15deg); }
 
-        .manual-card:hover .download-icon {
-            transform: scale(1.1);
-        }
-
-        /* --- ZAWARTOŚĆ BAZY WIEDZY (KAFELKI) --- */
-        main {
-            max-width: 1100px;
-            margin: 0 auto 80px auto;
-            padding: 0 20px;
-        }
-
-        .knowledge-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
+        /* --- KAFELKI BAZY WIEDZY --- */
+        main { max-width: 1150px; margin: 0 auto 100px auto; padding: 0 20px; }
+        .knowledge-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
 
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 35px 30px;
             text-decoration: none;
             color: inherit;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            transition: all 0.4s ease;
+            display: flex; flex-direction: column; gap: 15px;
             position: relative;
-            overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
+        /* Laserowa linia na górze kafelka */
+        .card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 0; height: 2px;
             background: linear-gradient(90deg, var(--primary-red), var(--primary-gold));
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: width 0.4s ease;
+            border-top-left-radius: 16px; border-top-right-radius: 16px;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            border-color: #3a3a3a;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.15);
+            background-color: rgba(30, 30, 30, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
 
-        .card:hover::before {
-            opacity: 1;
-        }
+        .card:hover::after { width: 100%; }
 
         .card-icon {
-            width: 55px;
-            height: 55px;
-            background-color: rgba(212, 175, 55, 0.08);
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(218, 41, 28, 0.05));
             color: var(--primary-gold);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            margin-bottom: 5px;
-            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 14px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem; margin-bottom: 5px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: transform 0.4s ease;
         }
 
-        .card h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            flex-grow: 1;
-        }
-
+        .card:hover .card-icon { transform: scale(1.1) rotate(-5deg); color: #fff; background: var(--primary-red); border-color: var(--primary-red); }
+        .card h2 { font-size: 1.3rem; font-weight: 600; color: #fff; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; flex-grow: 1; }
+        
         .card-link {
             color: var(--primary-red);
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            transition: color 0.2s;
+            font-weight: 600; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 8px; margin-top: 15px;
+            transition: color 0.3s;
         }
-
-        .card:hover .card-link {
-            color: var(--primary-gold);
-        }
-
-        .card-link i {
-            font-size: 0.8rem;
-            transition: transform 0.3s;
-        }
-
-        .card:hover .card-link i {
-            transform: translateX(5px);
-        }
+        .card:hover .card-link { color: var(--primary-gold); }
+        .card-link i { font-size: 0.8rem; transition: transform 0.3s; }
+        .card:hover .card-link i { transform: translateX(8px); }
 
         /* --- STOPKA --- */
         footer {
-            text-align: center;
-            padding: 30px 20px;
-            color: #555;
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border-color);
-            background-color: var(--card-bg);
+            text-align: center; padding: 40px 20px; color: #444; font-size: 0.85rem;
+            border-top: 1px solid rgba(255,255,255,0.05); background-color: #020202;
         }
         
         /* RWD */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
+            .hero h1 { font-size: 2.3rem; }
             nav { padding: 15px 20px; }
             .featured-grid { grid-template-columns: 1fr; }
         }
@@ -343,50 +324,51 @@
 </head>
 <body>
 
-    <nav>
+    <nav class="animate-up">
         <a href="#" class="brand">
-            <i class="fa-solid fa-layer-group"></i>
-            Better <span>Biedronka</span>
+            <i class="fa-solid fa-layer-group"></i> Better <span>Biedronka</span>
         </a>
         <div class="user-profile">
             <i class="fa-solid fa-circle-user"></i>
         </div>
     </nav>
 
-    <header class="hero">
-        <h1>Baza <span>Wiedzy</span></h1>
-        <p>Wszystkie instrukcje, procedury i standardy pracy w jednym, uporządkowanym miejscu. Czego dzisiaj szukasz?</p>
+    <header class="hero animate-up delay-1">
+        <h1>Portal <span>Operacyjny</span></h1>
+        <p>Zaawansowana baza wiedzy, instrukcje i standardy pracy w jednym, uporządkowanym miejscu.</p>
         
         <div class="search-container">
+            <input type="text" placeholder="Wpisz szukaną frazę (np. zwroty, lada, grafik)...">
             <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" placeholder="Wpisz słowo kluczowe (np. zwroty, kasa, grafik)...">
         </div>
     </header>
 
-    <section class="featured-section">
-        <div class="featured-title"><i class="fa-solid fa-star"></i> Oficjalne Podręczniki Główne</div>
+    <section class="featured-section animate-up delay-2">
+        <div class="featured-title"><i class="fa-solid fa-bolt"></i> Główne Podręczniki</div>
         <div class="featured-grid">
             
             <a href="podrecznik-kasjera.html" class="manual-card">
+                <span class="badge badge-gold">Aktualizacja</span>
                 <div class="manual-info">
-                    <div class="manual-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div class="manual-icon"><i class="fa-solid fa-book-open"></i></div>
                     <div class="manual-text">
-                        <h3>Podręcznik Sprzedawcy Kasjera</h3>
-                        <p>Standardy obsługi klienta, kasy i procedur sklepowych</p>
+                        <h3>Podręcznik Kasjera</h3>
+                        <p>Standardy obsługi i procedury kasowe</p>
                     </div>
                 </div>
-                <div class="download-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                <div class="download-icon"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
             <a href="podrecznik-kierownika.html" class="manual-card">
+                <span class="badge badge-red">Ważne</span>
                 <div class="manual-info">
-                    <div class="manual-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div class="manual-icon"><i class="fa-solid fa-user-tie"></i></div>
                     <div class="manual-text">
-                        <h3>Podręcznik Kierownika Sklepu</h3>
-                        <p>Zarządzanie zespołem, dokumentacja i operacje zaawansowane</p>
+                        <h3>Podręcznik Kierownika</h3>
+                        <p>Zarządzanie i dokumentacja sklepu</p>
                     </div>
                 </div>
-                <div class="download-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
+                <div class="download-icon"><i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
         </div>
@@ -395,53 +377,40 @@
     <main>
         <div class="knowledge-grid">
             
-            <a href="#" class="card">
+            <a href="kasa.html" class="card animate-up delay-3">
                 <div class="card-icon"><i class="fa-solid fa-cash-register"></i></div>
                 <h2>Strefa Kasy i SCO</h2>
-                <p>Instrukcje obsługi kas tradycyjnych, kas samoobsługowych, kody PLU oraz procedury płatności i zwrotów.</p>
-                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+                <p>Instrukcje obsługi kas tradycyjnych, kas samoobsługowych, kody PLU oraz procedury płatności.</p>
+                <div class="card-link">Rozpocznij moduł <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="#" class="card">
+            <a href="#" class="card animate-up delay-3">
                 <div class="card-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
                 <h2>Towarowanie i Magazyn</h2>
-                <p>Zasady przyjmowania dostaw, rotacja FIFO, obsługa wózków widłowych oraz planogramy ułożenia towaru.</p>
-                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+                <p>Zasady przyjmowania dostaw, rotacja FIFO, obsługa wózków oraz planogramy ułożenia towaru.</p>
+                <div class="card-link">Rozpocznij moduł <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="#" class="card">
-                <div class="card-icon"><i class="fa-solid fa-bread-slice"></i></div>
-                <h2>Strefa Świeżych Produktów</h2>
-                <p>Standardy odpieku pieczywa, dbanie o dział warzyw i owoców oraz procedury utylizacji.</p>
-                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+            <a href="#" class="card animate-up delay-4">
+                <span class="badge badge-gold" style="top: 15px; right: 15px;">NOWOŚĆ</span>
+                <div class="card-icon"><i class="fa-solid fa-temperature-empty"></i></div>
+                <h2>Strefa Świeża & Lada</h2>
+                <p>Standardy odpieku pieczywa, wytyczne SOM oraz procedury dla lady tradycyjnej (mięso/wędliny).</p>
+                <div class="card-link">Rozpocznij moduł <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
-            <a href="#" class="card">
+            <a href="#" class="card animate-up delay-4">
                 <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
                 <h2>BHP i Bezpieczeństwo</h2>
-                <p>Postępowanie w sytuacjach awaryjnych, pierwsza pomoc, kradzieże oraz instrukcje stanowiskowe.</p>
-                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
-            </a>
-
-            <a href="#" class="card">
-                <div class="card-icon"><i class="fa-regular fa-calendar-check"></i></div>
-                <h2>Kadry i Organizacja</h2>
-                <p>Grafiki, wnioski urlopowe, informacje o benefitach pracowniczych oraz obieg dokumentów.</p>
-                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
-            </a>
-
-            <a href="#" class="card">
-                <div class="card-icon"><i class="fa-solid fa-headset"></i></div>
-                <h2>IT i Awarie</h2>
-                <p>Numery do Helpdesku, zgłaszanie awarii chłodni, problemów z systemem oraz sprzętem w sklepie.</p>
-                <div class="card-link">Przeglądaj artykuły <i class="fa-solid fa-arrow-right"></i></div>
+                <p>Postępowanie awaryjne, pierwsza pomoc, kradzieże oraz instrukcje stanowiskowe dla personelu.</p>
+                <div class="card-link">Rozpocznij moduł <i class="fa-solid fa-arrow-right"></i></div>
             </a>
 
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Portal Pracowniczy. Edycja Premium.</p>
+        <p>&copy; 2026 Better Biedronka. Wszelkie prawa zastrzeżone.</p>
     </footer>
 
     <script>
